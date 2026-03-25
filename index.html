@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 13 — Family Menu</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f7f7f7; color: #222; }
+        .container { max-width: 800px; margin: 0 auto; padding: 2rem; }
+        header { text-align: center; margin-bottom: 2rem; }
+        h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+        .week-badge { background: #e0f0e8; color: #2a7a4a; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600; }
+        .day-card { background: white; border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+        .day-card.today { border: 2px solid #4caf50; }
+        .day-header { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem; }
+        .day-header .emoji { font-size: 1.4rem; }
+        .today .day-header::after { content: 'TODAY'; background: #4caf50; color: white; font-size: 0.6rem; padding: 2px 6px; border-radius: 4px; }
+        .meal-section { margin-bottom: 1rem; }
+        .meal-section:last-child { margin-bottom: 0; }
+        .meal-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: #888; font-weight: 700; margin-bottom: 0.3rem; }
+        .meal-items { list-style: none; }
+        .meal-items li { padding: 0.25rem 0; color: #333; }
+        .meal-items li::before { content: '•'; color: #4caf50; font-weight: bold; margin-right: 0.5rem; }
+        .note { background: #fff8e1; border-left: 3px solid #ffc107; padding: 0.5rem 0.8rem; border-radius: 0 6px 6px 0; font-size: 0.85rem; margin-bottom: 0.8rem; }
+        .footer { text-align: center; margin-top: 2rem; font-size: 0.75rem; color: #aaa; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🍽️ Weekly Menu</h1>
+            <span class="week-badge">Week 13</span>
+        </header>
+        
+        <div class="day-card">
+            <div class="day-header">
+                <span class="emoji">🌙</span>
+                Monday
+            </div>
+            <div class="note">No cooking! Eating at Dorothee's (Sarah's mom).</div>
+            
+        </div>
+        <div class="day-card">
+            <div class="day-header">
+                <span class="emoji">🌅</span>
+                Tuesday
+            </div>
+            
+            
+            <div class="meal-section">
+                <div class="meal-label">Breakfast</div>
+                <ul class="meal-items"><li>Oats</li></ul>
+            </div>
+            <div class="meal-section">
+                <div class="meal-label">Lunch</div>
+                <ul class="meal-items"><li>Cooked potatoes</li><li>Salad: cucumber, avocado, tomato, carrots, feta cheese</li><li>Frozen vegetables</li><li>Boiled eggs (4)</li></ul>
+            </div>
+            <div class="meal-section">
+                <div class="meal-label">Dinner</div>
+                <ul class="meal-items"><li>Wraps: avocado, mushrooms, beetroot and beetroot cream, cottage cheese, tuna, canned beans in tomato sauce</li></ul>
+            </div>
+        </div>
+        <div class="day-card today">
+            <div class="day-header">
+                <span class="emoji">☀️</span>
+                Wednesday
+            </div>
+            
+            
+            <div class="meal-section">
+                <div class="meal-label">Breakfast</div>
+                <ul class="meal-items"><li>Wrap: beetroot, cottage cheese, avocado, eggs, beans, feta</li></ul>
+            </div>
+            <div class="meal-section">
+                <div class="meal-label">Lunch</div>
+                <ul class="meal-items"><li>Lentil pasta *OR*</li><li>Red tofu, olives, spinach, feta, tomato, zucchini</li></ul>
+            </div>
+            <div class="meal-section">
+                <div class="meal-label">Dinner</div>
+                <ul class="meal-items"><li>Tomato mozzarella salad</li></ul>
+            </div>
+        </div>
+        <div class="day-card">
+            <div class="day-header">
+                <span class="emoji">🌤️</span>
+                Thursday
+            </div>
+            
+            
+            <div class="meal-section">
+                <div class="meal-label">Breakfast</div>
+                <ul class="meal-items"><li>Same wrap as the other days (can swap wrap for bread)</li></ul>
+            </div>
+            <div class="meal-section">
+                <div class="meal-label">Lunch</div>
+                <ul class="meal-items"><li>Chicken soup and rice</li><li>Salad: avocado, beetroot, Parmesan, carrots, cucumber</li></ul>
+            </div>
+            <div class="meal-section">
+                <div class="meal-label">Dinner</div>
+                <ul class="meal-items"><li>Oats</li></ul>
+            </div>
+        </div>
+        <div class="day-card">
+            <div class="day-header">
+                <span class="emoji">🌻</span>
+                Friday
+            </div>
+            
+            
+            <div class="meal-section">
+                <div class="meal-label">Breakfast</div>
+                <ul class="meal-items"><li>Same wrap as other days</li></ul>
+            </div>
+            <div class="meal-section">
+                <div class="meal-label">Lunch</div>
+                <ul class="meal-items"><li>Soup from the day before (Chicken soup and rice)</li></ul>
+            </div>
+            <div class="meal-section">
+                <div class="meal-label">Dinner</div>
+                <ul class="meal-items"><li>Salmon with Brussels sprouts, baked potatoes and quinoa</li></ul>
+            </div>
+        </div>
+        <div class="footer">OpenClaw Family Kitchen — Week 13</div>
+    </div>
+</body>
+</html>
