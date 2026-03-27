@@ -38,9 +38,9 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         .week-badge {{ background: #e0f0e8; color: #2a7a4a; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600; }}
         .day-card {{ background: white; border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }}
         .day-card.today {{ border: 2px solid #4caf50; }}
-        .day-header {{ font-size: 1.2rem; font-weight: 700; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem; }}
-        .day-header .emoji {{ font-size: 1.4rem; }}
-        .today .day-header::after {{ content: 'TODAY'; background: #4caf50; color: white; font-size: 0.6rem; padding: 2px 6px; border-radius: 4px; }}
+        .day-card.today .day-header::after {{ content: 'TODAY'; background: #4caf50; color: white; font-size: 0.6rem; padding: 2px 6px; border-radius: 4px; margin-left: 0.5rem; }}
+        .day-header {{ font-size: 1.2rem; font-weight: 700; margin-bottom: 0.8rem; display: flex; align-items: center; }}
+        .day-header .emoji {{ font-size: 1.4rem; margin-right: 0.4rem; }}
         .meal-section {{ margin-bottom: 1rem; }}
         .meal-section:last-child {{ margin-bottom: 0; }}
         .meal-label {{ font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: #888; font-weight: 700; margin-bottom: 0.3rem; }}
@@ -60,11 +60,23 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         {days_html}
         <div class="footer">OpenClaw Family Kitchen — Week {week}</div>
     </div>
+    <script>
+        // Highlight the current day using the browser's local timezone
+        const today = new Date().toLocaleDateString('en-US', {{weekday: 'long'}});
+        const cards = document.querySelectorAll('.day-card');
+        cards.forEach(card => {{
+            const dayName = card.getAttribute('data-day');
+            if (dayName === today) {{
+                card.classList.add('today');
+                card.scrollIntoView({{behavior: 'smooth', block: 'center'}});
+            }}
+        }});
+    </script>
 </body>
 </html>"""
 
 DAY_CARD_TEMPLATE = """
-        <div class="day-card{today_class}">
+        <div class="day-card" data-day="{day_name}">
             <div class="day-header">
                 <span class="emoji">{icon}</span>
                 {day_name}
@@ -93,9 +105,8 @@ def parse_menu(content):
             days[current_day]['notes'] = line[4:].strip().strip('*')
     return days
 
-def render_day(day_name, day_data, is_today):
+def render_day(day_name, day_data):
     icon = DAY_ICONS.get(day_name, '📅')
-    today_class = ' today' if is_today else ''
     note_html = f'<div class="note">{day_data["notes"]}</div>' if day_data['notes'] else ''
     meals_html = ''
     for meal_name, items in day_data['meals'].items():
@@ -106,7 +117,7 @@ def render_day(day_name, day_data, is_today):
                 <ul class="meal-items">{items_html}</ul>
             </div>'''
     return DAY_CARD_TEMPLATE.format(
-        today_class=today_class, icon=icon, day_name=day_name,
+        day_name=day_name, icon=icon,
         note_html=note_html, meals_html=meals_html
     )
 
@@ -118,11 +129,9 @@ def main():
     with open(path) as f:
         content = f.read()
     days = parse_menu(content)
-    today_name = datetime.date.today().strftime('%A')
     days_html = ''
     for day_name, day_data in days.items():
-        is_today = (day_name == today_name)
-        days_html += render_day(day_name, day_data, is_today)
+        days_html += render_day(day_name, day_data)
     html = HTML_TEMPLATE.format(week=week, days_html=days_html)
     out_path = os.path.join(MENU_DIR, 'index.html')
     with open(out_path, 'w') as f:
