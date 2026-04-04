@@ -482,7 +482,7 @@ def main():
         today_name=today_name,
     )
 
-    out_path = os.path.join(MENU_DIR, 'index.html')
+    out_path = '/root/.openclaw/workspace/kiloclaw-webapps/index.html'
     with open(out_path, 'w') as f:
         f.write(html)
     print(f"Generated {out_path} ({len(html):,} bytes)")
